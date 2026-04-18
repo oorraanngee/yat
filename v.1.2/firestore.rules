@@ -1,0 +1,75 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\\\-]+$'); }
+
+    // --- User Profile ---
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.uid is string &&
+               data.uid == request.auth.uid &&
+               data.birthday is string &&
+               data.birthday.size() <= 20 &&
+               data.phoneVerified is bool;
+      }
+      
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+      // Fixed: Updates to birthday or email usually not handled after verification in this app
+      // but we allow update if it's the owner and data is valid
+      allow update: if isOwner(userId) && isValidUser(request.resource.data);
+    }
+
+    // --- API Keys ---
+    match /api_keys/{keyId} {
+      function isValidKey(data) {
+        return data.key is string &&
+               data.key.size() <= 200 &&
+               data.userId == request.auth.uid &&
+               data.isActive is bool &&
+               data.historyEnabled is bool &&
+               data.totalRequests is int;
+      }
+
+      // Allow listing own keys
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      
+      allow create: if isSignedIn() && 
+                    request.resource.data.userId == request.auth.uid && 
+                    isValidKey(request.resource.data);
+      
+      allow update: if isSignedIn() && 
+                    resource.data.userId == request.auth.uid && 
+                    request.resource.data.userId == resource.data.userId &&
+                    // Actions: toggle history or isActive
+                    (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['historyEnabled', 'isActive']) ||
+                     // Incrementing requests (performed by server, but rules reflect possible client side if needed)
+                     request.resource.data.diff(resource.data).affectedKeys().hasOnly(['totalRequests', 'lastUsedAt']));
+      
+      allow delete: if isOwner(resource.data.userId);
+    }
+
+    // --- API Logs ---
+    match /api_logs/{logId} {
+      // Logs are primarily managed by server, but client needs to read them for dashboard
+      allow list: if isSignedIn() && (
+        // Client queries where key matches a key they own
+        // Since we can't easily join in rules, we check if the log belongs to them
+        resource.data.userId == request.auth.uid
+      );
+      
+      // Server-side will have admin access or we define rules if client ever writes logs directly
+      // In this app, only server writes logs, and dashboard reads them.
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

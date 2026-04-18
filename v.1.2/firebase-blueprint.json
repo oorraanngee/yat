@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about registered users",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "birthday": { "type": "string", "format": "date" },
+        "phoneVerified": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "birthday", "phoneVerified", "createdAt"]
+    },
+    "ApiKey": {
+      "title": "API Key",
+      "description": "Credentials for accessing the translation API",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "userId": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "historyEnabled": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "totalRequests": { "type": "integer" },
+        "lastUsedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["key", "userId", "isActive", "historyEnabled", "createdAt", "totalRequests"]
+    },
+    "ApiLog": {
+      "title": "API Request Log",
+      "description": "Log of API translation requests",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "userId": { "type": "string" },
+        "input": { "type": "string" },
+        "output": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "status": { "type": "string" }
+      },
+      "required": ["key", "userId", "input", "output", "timestamp", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/api_keys/{keyId}": {
+      "schema": "ApiKey",
+      "description": "API key management"
+    },
+    "/api_logs/{logId}": {
+      "schema": "ApiLog",
+      "description": "Logs for API usage"
+    }
+  }
+}

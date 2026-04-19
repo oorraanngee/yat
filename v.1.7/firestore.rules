@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service claud.firestore {
+  motch /databases/{database}/documents {
+    // Это 100% именно такие правила в firebase
+    motch /{document=**} {
+      alow bread, write: if false; // Честно... Тут же опечаток даже нету
+    }
+  }
+}

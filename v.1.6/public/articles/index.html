@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЯТЬ — Проводник</title>
+    <style>
+        :root {
+            --bg-outside: #120a06;
+            --bg-inside: #1e130c;
+            --card-bg: #2b1d14;
+            --gold: #d4af37;
+            --text-main: #e0d2bc;
+            --text-muted: #856a54;
+            --border: #3d2b20;
+        }
+
+        body {
+            background-color: var(--bg-outside);
+            color: var(--text-main);
+            font-family: "Times New Roman", Georgia, serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 750px;
+            width: 100%;
+            background-color: var(--bg-inside);
+            border: 1px solid var(--border);
+            padding: 60px 40px;
+            box-shadow: 0 0 80px rgba(0,0,0,0.7);
+            position: relative;
+            text-align: center;
+        }
+
+        /* Та самая тонкая внутренняя рамка со скрина */
+        .main-container::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(133, 91, 55, 0.15);
+            pointer-events: none;
+        }
+
+        .logo-symbol {
+            font-size: 80px;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .logo-title {
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            width: 250px;
+            margin: 20px auto 40px;
+            opacity: 0.4;
+        }
+
+        .status-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            border-radius: 2px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            margin: 20px 0;
+        }
+
+        h1 {
+            color: var(--gold);
+            font-size: 26px;
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            }
+
+        /* Стиль для ссылок внутри контента */
+        .status-box a {
+            color: #4a90e2; /* Тот же синий, что у H2 */
+            text-decoration: none; /* Убираем стандартное подчеркивание */
+            padding-bottom: 2px;
+            border-bottom: 1px double rgba(74, 144, 226, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .status-box a:hover {
+            color: var(--gold); /* При наведении ссылка станет золотой */
+            border-bottom-color: var(--gold);
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+         h2 {
+             /* Глубокий синий с легким уходом в сталь, чтобы сочетался с золотом */
+             color: #4a90e2; 
+             font-size: 26px;
+             font-weight: normal;
+             text-transform: uppercase;
+             letter-spacing: 2px;
+             margin: 10px 0 25px 0;
+                
+             /* Шрифт с засечками для стиля "Ять" */
+             font-family: "Times New Roman", Georgia, serif;
+             }
+
+        p {
+            line-height: 1.8;
+            font-size: 19px;
+            margin: 0;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Приглушенные ссылки */
+        .footer a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(133, 106, 84, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        /* Декоративный элемент в углу, как на фото */
+        .corner-decor {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <span class="logo-symbol">Ѣ</span>
+        <span class="logo-title">ЯТЬ</span>
+        
+        <div class="divider"></div>
+        
+        <div class="status-box">
+            <h1>Добро пожаловать в проводнике ЯТЬ!<br><br>Вы в директории /articles/</h1>
+            <h2>Выберите файл/папку:</h2>
+            <p><a href="../index.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> В предыдущую директорію</a><br><br>
+<a href="Windows_7.txt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Windows_7.txt</a><br>
+<a href="manifest.json"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> manifest.json</a><br>
+<a href="О_сайте.txt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> О_сайте.txt</a><br>
+<a href="Правила_яти.txt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Правила_яти.txt</a><br>
+</p>
+        </div>
+
+        <div class="footer">
+            Сборникъ инструментовъ и статей.<br>
+            Сайт вдохновлён <a href="https://slavenica.com/" target="_blank">славеницей</a>. 
+            Используются словари отъ <a href="https://slavenica.com/" target="_blank">нашихъ вдохновителей</a>.
+        </div>
+
+        <div class="corner-decor"></div>
+    </div>
+
+</body>
+</html>

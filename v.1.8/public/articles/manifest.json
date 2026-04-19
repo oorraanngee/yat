@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "about",
+      "type": "article",
+      "title": "О сайте",
+      "description": "Что это за проект и зачем он нужен.",
+      "filename": "О_сайте.txt"
+    },
+    {
+      "id": "orthography",
+      "type": "category",
+      "title": "Дореволюционная орфография",
+      "description": "Правила, история и особенности старой орфографии.",
+      "items": [
+        {
+          "id": "pravila-yati",
+          "type": "article",
+          "title": "Подробные правила дореволюционной орфографии",
+          "description": "Исчерпывающее руководство по использованию Ѣ, І, Ѳ, Ѵ и Ъ в текстах.",
+          "filename": "Правила_яти.txt"
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "type": "category",
+      "title": "Технологии и IT",
+      "description": "Статьи про компьютеры, программы и операционные системы.",
+      "items": [
+        {
+          "id": "windows-history-folder",
+          "type": "category",
+          "title": "История поколений Windows",
+          "description": "Путь развития самой популярной ОС в мире.",
+          "items": [
+            {
+              "id": "windows-7",
+              "type": "article",
+              "title": "История Windows 7",
+              "description": "Ретроспектива одной из самых успешных и любимых операционных систем в истории.",
+              "filename": "Windows_7.txt"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

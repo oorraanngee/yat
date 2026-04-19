@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "api/**/*.ts": {
+      "includeFiles": "public/dictionaries/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/v1/translate", "destination": "/api/v1/translate" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

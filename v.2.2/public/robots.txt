@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yiat.vercel.app/sitemap.xml

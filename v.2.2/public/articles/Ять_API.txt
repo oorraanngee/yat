@@ -1,0 +1,93 @@
+# Документация Ять API (v1.1.2)
+
+API проекта **ЯТЬ** предоставляет разработчикам мощный инструмент для автоматической стилизации текстов под дореволюционную орфографию. В основе лежат алгоритмические правила и обширные словари.
+
+## Аутентификация
+
+Все запросы к API должны содержать заголовок `x-api-key`. Получить ключ можно в [Личном кабинете](/api-setup).
+
+**Заголовок:** `x-api-key: yat_ваша_подпись_здесь`
+
+## Основной Endpoint
+
+Перевод осуществляется методом `POST`.
+
+**URL:** `https://yiat.vercel.app/api/v1/translate`
+
+### Формат запроса (JSON)
+```json
+{
+  "text": "Текст, который нужно перевести"
+}
+```
+
+### Формат ответа (JSON)
+```json
+{
+  "translated": "Текстъ, который нужно перевести",
+  "v": "1.1.2",
+  "cleaned": false
+}
+```
+
+## Примеры реализации
+
+### 1. JavaScript (Fetch API)
+```javascript
+const response = await fetch('https://yiat.vercel.app/api/v1/translate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': 'yat_XXXXXXXXXX'
+  },
+  body: JSON.stringify({
+    text: 'Привет, мир!'
+  })
+});
+const data = await response.json();
+console.log(data.translated); // Привѣтъ, міръ!
+```
+
+### 2. Python (Requests)
+```python
+import requests
+
+url = "https://yiat.vercel.app/api/v1/translate"
+headers = {
+    "x-api-key": "yat_XXXXXXXXXX",
+    "Content-Type": "application/json"
+}
+payload = {"text": "Фёдор пошёл в лес."}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json()['translated']) # Ѳеодоръ пошёлъ въ лѣсъ.
+```
+
+### 3. PHP (cURL)
+```php
+$ch = curl_init('https://yiat.vercel.app/api/v1/translate');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'x-api-key: yat_XXXXXXXXXX',
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json.encode(['text' => 'Ехать в Питер.']));
+$response = curl_exec($ch);
+$result = json_decode($response, true);
+echo $result['translated']; // Ѣхать въ Питеръ.
+```
+
+## Коды ошибок
+
+| Код | Описание | Причина |
+|:---|:---|:---|
+| 200 | OK | Успешный перевод. |
+| 400 | Bad Request | Отсутствует поле `text` в теле запроса. |
+| 401 | Unauthorized | Неверный или отсутствующий API-ключ. |
+| 403 | Forbidden | Превышены лимиты или ключ заблокирован. |
+| 405 | Method Not Allowed | Используется не `POST` метод. |
+| 500 | Internal Server Error | Ошибка на стороне сервера или критический сбой словаря. |
+
+## Особенности обработки (Zalgo)
+
+Наш сервер использует алгоритм **Zalgo-Clean**. Если ваш текст содержит чрезмерное количество комбинируемых диакритических знаков («шумные» буквы), они будут автоматически удалены или ограничены (не более 3 символов на одну букву). Поле `cleaned` в ответе примет значение `true`, если такая очистка имела место.

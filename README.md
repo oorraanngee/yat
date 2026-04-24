@@ -41,3 +41,15 @@ payload = {"text": "Фёдор пошёл в лес."}
 
 response = requests.post(url, json=payload, headers=headers)
 print(response.json()['translated']) # Ѳеодоръ пошёлъ въ лѣсъ.
+```
+
+### Статьи про Ять (В библеотеке Ять):
+* [О проекте](https://yiat.vercel.app/articles/about)
+* [Автономный переводчик Ять](https://yiat.vercel.app/articles/standalone-yat)
+* [Наши инструменты](https://yiat.vercel.app/articles/tools-overview)
+* [Ять API](https://yiat.vercel.app/articles/api-guide)
+---
+Другие статьи можете прочитать в [библеотеке Ять](https://yiat.vercel.app/articles).<br>
+Связаться можно [на Ять](https://yiat.vercel.app/feedback) или по [почте `am2004idd@gmail.com`](https://mail.google.com/)
+
+Сайт вдохновлён проектом **Славеница**. Оттуда же взяты словари **Aspell и Hunspell**.
